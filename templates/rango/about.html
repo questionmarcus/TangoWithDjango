@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+
+{% load staticfiles %}
+
+<html>
+    <head>
+        <title>About me</title>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <h1>About</h1>
+        <div>
+            <img src="{% static 'images/rango_with_sword.jpg' %}" alt="Rango with a sword">
+        </div>
+        <p>
+            This tutorial has been put together by me, Marcus L
+        </p>
+        <div>
+            <h2>A Cat:</h2>
+            <img src="{{ MEDIA_URL }}cat.jpg" alt="A cat">
+        </div>
+    </body>
+</html>
+

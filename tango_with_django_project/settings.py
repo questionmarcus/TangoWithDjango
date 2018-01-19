@@ -15,6 +15,14 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+# The location of the templates directory
+TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
+
+# The location of the static files in the project folder
+STATIC_DIR = os.path.join(BASE_DIR, 'static')
+
+# Location of dynamic media files (uploads)
+MEDIA_DIR = os.path.join(BASE_DIR, 'media')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
@@ -40,6 +48,10 @@ INSTALLED_APPS = [
     'rango',
 ]
 
+MEDIA_ROOT = MEDIA_DIR
+
+MEDIA_URL = '/media/'
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -52,13 +64,9 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'tango_with_django_project.urls'
 
-# The location of the static files in the project folder
-STATIC_DIR = os.path.join(BASE_DIR, 'static')
 
 STATICFILES_DIRS = [STATIC_DIR, ] # where to look for static files
 
-# The location of the templates directory
-TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 
 TEMPLATES = [
     {
@@ -71,6 +79,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media',
             ],
         },
     },
