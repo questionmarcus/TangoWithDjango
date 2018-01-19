@@ -52,12 +52,18 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'tango_with_django_project.urls'
 
+# The location of the static files in the project folder
+STATIC_DIR = os.path.join(BASE_DIR, 'static')
+
+STATICFILES_DIRS = [STATIC_DIR, ] # where to look for static files
+
+# The location of the templates directory
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [TEMPLATE_DIR, ],
+        'DIRS': [TEMPLATE_DIR, ], # Where to look for template files
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

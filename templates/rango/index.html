@@ -1,4 +1,11 @@
 <!DOCTYPE html>
+
+<!--
+    Tell the template engine that we will be using static files in this template
+    The structure with brackets and percentage signs is referred to as the template tag
+-->
+{% load staticfiles %}
+
 <html>
     <head>
         <title>Rango</title>
@@ -13,10 +20,14 @@
                 We can set the value of this variable so it is replaced
                 whenever the template is loaded
             -->
-            <strong>{{ boldmessage }}</strong><br> 
+            <strong>{{ boldmessage }}</strong><br>
         </div>
         <div>
             <a href="/rango/about/">About</a><br>
+            <!--
+                Tells django to look for images/rango.jpg in the static_url location
+            -->
+            <img src="{% static 'images/rango.jpg' %}" alt="A Picture of Rango"/>
         </div>
     </body>
 </html>
