@@ -8,7 +8,7 @@ def index(request):
 
     # Return a rendered response to send to the client
     # render function takes a request, the template filename and the context
-    context_dict = {'boldmessage': "The Ting Goes Skraaaa"}
+    context_dict = {'boldmessage': "Crunchy, creamy, cookie, candy, cupcake!"}
     return render(request, 'rango/index.html', context=context_dict)
 
 def about(request):
