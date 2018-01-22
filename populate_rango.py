@@ -1,12 +1,13 @@
 # Copied from page 55-56 of "Tango with Django"
 
 import os
-import django
-from rango.models import Category, Page
-
 os.environ.setdefault('DJANGO_SETTINGS_MODULE',
                       'tango_with_django_project.settings')
+
+import django
 django.setup()
+
+from rango.models import Category, Page
 
 def populate():
     '''
@@ -18,27 +19,27 @@ def populate():
 
     python_pages = [
             {"title": "Official Python Tutorial",
-                "url": "https://docs.python.org/3/tutorial" }
+                "url": "https://docs.python.org/3/tutorial" },
             {"title": "How to Think Like a Computer Scientist",
-                "url": "https://www.greenteapress.com/thinkpython"}
+                "url": "https://www.greenteapress.com/thinkpython"},
             {"title": "Learn Python in 10 Minutes",
                 "url": "https://www.korokithakis.net/tutorials/python"}
             ]
 
     django_pages = [
             {"title": "Official Django Tutorial",
-                "url": "https://docs.djangoproject.com/en/2.0"}
+                "url": "https://docs.djangoproject.com/en/2.0"},
             {"title": "Django Rocks",
-                "url": "https://www.djangorocks.com"}
+                "url": "https://www.djangorocks.com"},
             {"title": "How to Tango with Django",
                 "url": "https://www.tangowithdjango.com/"}
             ]
 
     other_pages = [
             {"title": "Bottle",
-                "url": "http://bottlepy.org/docs/dev/"}
+                "url": "http://bottlepy.org/docs/dev/"},
             {"title": "Flask",
-                "url": "http://flask.pocoo.org/"}
+                "url": "http://flask.pocoo.org/"},
             ]
 
     cats = {"Python": {"pages": python_pages},
@@ -51,7 +52,7 @@ def populate():
     # The code below goes through the cat dictionary, then adds each catagory,
     # then adds all the associated pages for that catagory.
 
-    for cat, cat_data in cat.items():
+    for cat, cat_data in cats.items():
         c = add_cat(cat)
         for p in cat_data["pages"]:
             add_page(c, p["title"], p["url"])
