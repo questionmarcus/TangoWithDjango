@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from rango.models import Category, Page
+from rango.forms import CategoryForm
 
 def index(request):
     # Construct a dict to pass to the template engine
@@ -38,3 +39,19 @@ def show_category(request, category_name_slug):
         context_dict['category'] = None
 
     return render(request, 'rango/category.html', context_dict)
+
+def add_category(request):
+    form = CategoryForm()
+
+    if request.method == 'POST':
+        form = CategoryForm(request.POST)
+        if form.is_valid():
+            # if entered for is valid, add it to the database
+            form.save(commit=True)
+            # now send the user back to the homepage
+            return index(request)
+        else:
+            # if form has errors, show them to the user
+            print(form.errors)
+
+    return render(request, 'rango/add_category.html', {'form':form})
