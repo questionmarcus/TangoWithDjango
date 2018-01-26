@@ -20,10 +20,6 @@ def index(request):
 
 def about(request):
     return render(request, 'rango/about.html')
-#    return HttpResponse(
-#        "Rango says \"Here is the about page\". "+
-#        "<a href='/rango/'>Back Home</a>"
-#    )
 
 def show_category(request, category_name_slug):
     # Create a context dictionary to pass to the template rendering engine
