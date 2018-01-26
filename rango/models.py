@@ -1,5 +1,6 @@
 from django.db import models
 from django.template.defaultfilters import slugify
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Category(models.Model):
@@ -26,3 +27,15 @@ class Page(models.Model):
 
     def __str__(self):
         return self.title
+
+class UserProfile(models.Model):
+    # This is required as is links the profile to the main USER model in django
+    user = models.OneToOneField(User)
+
+    # Additional attributes here:
+    website = models.URLField(blank=True)
+    picture = models.ImageField(upload_to='profile_images', blank=True)
+
+    # Override the __str__ method to output only the user name (cos thats all we need)
+    def __str__(self):
+        return self.user.username
