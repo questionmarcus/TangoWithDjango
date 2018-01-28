@@ -1,5 +1,8 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+from django.core.urlresolvers import reverse
 from rango.models import Category, Page
 from rango.forms import CategoryForm, PageForm, UserForm, UserProfileForm
 
@@ -36,6 +39,7 @@ def show_category(request, category_name_slug):
 
     return render(request, 'rango/category.html', context_dict)
 
+@login_required
 def add_category(request):
     form = CategoryForm()
 
@@ -52,6 +56,7 @@ def add_category(request):
 
     return render(request, 'rango/add_category.html', {'form':form})
 
+@login_required
 def add_page(request, category_name_slug):
     try:
         category = Category.objects.get(slug=category_name_slug)
@@ -123,3 +128,43 @@ def register(request):
                 'profile_form': profile_form,
                 'registered': registered}
             )
+
+def user_login(request):
+    # If request is a post (completed the form)
+    if request.method == 'POST':
+        # gather relevant information from the request
+        # use request.POST.get so that if the information is
+        # missing, it will return "None" rather than raise an error
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+
+        # use Django to test is the user details are correct
+        user = authenticate(username=username, password=password)
+
+        if user:
+            # if the account is active
+            if user.is_active:
+                # log the user in and send them to the main page
+                login(request, user)
+                return HttpResponseRedirect(reverse('index'))
+            else:
+                # If the account was deactivated, don't log them in
+                return HttpResponse("Your rango account is disabled")
+        else:
+            print("Invalid login details: {0}, {1}".format(username, password))
+            return HttpResponse("Invalid login details supplied.")
+    # If a HTTP Get request was made, display the login details
+    else:
+        return render(request, 'rango/login.html', {})
+
+@login_required
+def user_logout(request):
+    # As we are using the login_required decorator, we know we dont have to
+    # test for the user being logged in
+    logout(request) # Log the user out
+    # Now they are logged out, send them back to the homepage
+    return HttpResponseRedirect(reverse("index"))
+
+@login_required
+def restricted(request):
+    return render(request, 'rango/restricted.html')

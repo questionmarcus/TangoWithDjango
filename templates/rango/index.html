@@ -2,9 +2,15 @@
 {% load staticfiles %}
 
 {% block body_block %}
-<h1>Rango says...</h1>
+<h1>
+    Rango says...
+    {% if user.is_authenticated %}
+        howdy {{ user.username }}
+    {% else %}
+        hey there partner!<br>
+    {% endif %}
+</h1>
 <div>
-    ...hey there partner!<br>
     <!--
         This is the Django template variable
         We can set the value of this variable so it is replaced
