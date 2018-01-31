@@ -134,7 +134,7 @@ def register(request):
             print(user_forms.errors, profile_forms.errors)
     else:
             # if it is not a POST request, the forms will be blank awaiting input
-            user_form = UserForm
+            user_form = UserForm()
             profile_form = UserProfileForm()
 
     return render(
